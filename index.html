@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Marquee Widget</title>
+    <title>Enhanced Image Marquee Widget</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
             overflow-x: hidden;
         }
 
         .marquee-container {
             width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
+            height: 220px;
             overflow: hidden;
             position: relative;
+            background: linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 5%, rgba(0,0,0,0) 95%, rgba(0,0,0,0.05) 100%);
         }
 
         .marquee {
             display: flex;
-            animation: marquee 30s linear infinite;
+            animation: marquee 40s linear infinite;
+            padding: 10px 0;
         }
 
         .marquee:hover {
@@ -31,94 +33,215 @@
 
         .image-container {
             position: relative;
-            margin: 10px;
-            transition: transform 0.3s ease, scale 0.3s ease;
+            margin: 0 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background-color: white;
         }
 
         .image-container:hover {
-            transform: scale(1.2);
-            z-index: 1;
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .image-wrapper {
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
         }
 
         .image-container img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
         }
 
-        .image-container a {
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .download-btn {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.5));
             color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
             text-decoration: none;
-            display: none;
+            transition: bottom 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .image-container:hover a {
-            display: block;
+        .download-icon {
+            margin-right: 5px;
+            font-size: 16px;
+        }
+
+        .image-container:hover .download-btn {
+            bottom: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+
+        .control-btn:hover {
+            background: #3a80d2;
         }
 
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .speed-control {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .speed-slider {
+            width: 200px;
+            margin-top: 8px;
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
+    <h1 class="title">Image Gallery Showcase</h1>
 
-    <div class="marquee-container">
-        <div class="marquee">
+    <div class="marquee-container" id="marquee-container">
+        <div class="marquee" id="marquee">
             <div class="image-container">
-                <img src="https://i.imgur.com/cQ76Qbu.png" alt="Image 1">
-                <a href="https://i.imgur.com/cQ76Qbu.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/400" alt="Image 1">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/tFsrpGZ.png" alt="Image 2">
-                <a href="https://i.imgur.com/tFsrpGZ.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/300" alt="Image 2">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/rSR7CqD.png" alt="Image 3">
-                <a href="https://i.imgur.com/rSR7CqD.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/300/400" alt="Image 3">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/qtKgvs9.png" alt="Image 4">
-                <a href="https://i.imgur.com/qtKgvs9.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/250" alt="Image 4">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/nroYrdl.png" alt="Image 5">
-                <a href="https://i.imgur.com/nroYrdl.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/250/400" alt="Image 5">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
 
             <!-- Duplicate images for infinite scrolling -->
             <div class="image-container">
-                <img src="https://i.imgur.com/cQ76Qbu.png" alt="Image 1">
-                <a href="https://i.imgur.com/cQ76Qbu.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/400" alt="Image 1">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/tFsrpGZ.png" alt="Image 2">
-                <a href="https://i.imgur.com/tFsrpGZ.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/300" alt="Image 2">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/rSR7CqD.png" alt="Image 3">
-                <a href="https://i.imgur.com/rSR7CqD.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/300/400" alt="Image 3">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/qtKgvs9.png" alt="Image 4">
-                <a href="https://i.imgur.com/qtKgvs9.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/400/250" alt="Image 4">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
             <div class="image-container">
-                <img src="https://i.imgur.com/nroYrdl.png" alt="Image 5">
-                <a href="https://i.imgur.com/nroYrdl.png" download>Download</a>
+                <div class="image-wrapper">
+                    <img src="/api/placeholder/250/400" alt="Image 5">
+                </div>
+                <a href="#" class="download-btn"><span class="download-icon">↓</span> Download</a>
             </div>
         </div>
     </div>
 
+    <div class="controls">
+        <button class="control-btn" id="pauseBtn">Pause</button>
+        <button class="control-btn" id="playBtn">Play</button>
+    </div>
+
+    <div class="speed-control">
+        <label for="speedSlider">Animation Speed:</label>
+        <input type="range" id="speedSlider" class="speed-slider" min="10" max="80" value="40">
+    </div>
+
+    <script>
+        // Control buttons functionality
+        const marquee = document.getElementById('marquee');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const playBtn = document.getElementById('playBtn');
+        const speedSlider = document.getElementById('speedSlider');
+        
+        pauseBtn.addEventListener('click', () => {
+            marquee.style.animationPlayState = 'paused';
+        });
+        
+        playBtn.addEventListener('click', () => {
+            marquee.style.animationPlayState = 'running';
+        });
+        
+        // Speed control
+        speedSlider.addEventListener('input', (e) => {
+            const speed = e.target.value;
+            marquee.style.animationDuration = speed + 's';
+        });
+    </script>
 </body>
 </html>
